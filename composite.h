@@ -2,6 +2,9 @@
 #define COMPOSITE_H
 #include "component.h"
 #include <iostream>
+#include <math.h>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -19,12 +22,6 @@ class Op : public Base{
 		double evaluate();
 	private:
 		double op;
-};
-
-class Add : public Base{
-	public:
-		Add(Base* left, Base* right);
-		double evaluate();
 };
 
 class Add : public Base{

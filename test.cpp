@@ -5,7 +5,7 @@
 #include "component.h"
 #include <algorithm>
 #include <vector>
-#include <vector>
+#include <math.h>
 using namespace std;
 
 

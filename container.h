@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <math.h>
+using namespace std;
 
 class Container {
     protected:
@@ -64,13 +66,6 @@ class ListContainer : public Container
 		}
 		void print()
 		{
-			list<Base*>::iterator it;
-			for(it = baseList.begin(); it != baseList.end(); ++it)
-			{
-				Base* temp = *it;
-				cout << temp->evaluate() << endl;
-			}
-		}
 		void swap(int first, int second)
 		{
 			list<Base*>::iterator it;
