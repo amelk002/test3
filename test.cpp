@@ -10,7 +10,13 @@ using namespace std;
 
 
 
-
+class Sort;
+class Container;
+class SelectionSort;
+class BubbleSort;
+class VectorContainer;
+class ListContainer;
+class Base
 
 int main() {
     Op* op1 = new Op(5);

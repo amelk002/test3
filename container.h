@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+
 using namespace std;
 
 class Container {
@@ -37,13 +38,6 @@ class Container {
         virtual int size() = 0;
 };
 
-class Sort {
-  public:
-    /* Constructors */
-    Sort();
-    /* Pure Virtual Functions */
-    virtual void sort(Container* container) = 0;
-};
 
 class ListContainer : public Container
 {
@@ -52,60 +46,74 @@ class ListContainer : public Container
 		Base* child;
 	public:
 		ListContainer(): child(NULL) {}
-		ListContainer(Sort* newList): child(NULL)
+		ListContainer(Sort* temp): child(NULL)
 		{
-			sort_function = newList;
+			sort_function = temp;
 		}
 		void sort()
 		{
-			sort_function->sort(this);
+			 sort_function->sort(this);
 		}
-		void add_element(Base* newElement)
+		void add_element(Base* element)
 		{
-			baseList.push_back(newElement);
+			baseList.push_back(element);
 		}
 		void print()
 		{
-		void swap(int first, int second)
+			list<Base*>::iterator it;
+			for(it = baseList.begin(); it != baseList.end(); it++)
+			{
+				Base* a = *it;
+				cout << a->evaluate() << endl;
+			}
+		}
+		void swap(int i,int j)
 		{
 			list<Base*>::iterator it;
 			int counter = 0;
+			Base* temp1;
+			Base* temp2;
 			int counter2 = 0;
-			Base* firstElement;
-			Base* secondElement;
-			for(it = baseList.begin(); it != baseList.end(); ++counter, ++counter2, ++it)
+			for(it = baseList.begin(); it != baseList.end(); it++)
 			{
-				if(counter == first)
+				if(counter == i)
 				{
-					firstElement = *it;
+					temp1 = *it;
 				}
-				if(counter2 == second)
+				if(counter == j)
 				{
-					secondElement = *it;
+					temp2 = *it;
 				}
+				counter++;
+				counter2++;
 			}
-			for(counter = 0, counter2 = 0, it = baseList.begin(); it != baseList.end(); ++counter, ++counter2, ++it)
+			counter = 0;
+			counter2 = 0;
+			for(it = baseList.begin(); it != baseList.end(); it++)
 			{
-				if(counter == first)
+				if(counter == i)
 				{
-					*it = secondElement;
+					*it = temp2;
 				}
-				if(counter2 == second)
+				if(counter == j)
 				{
-					*it = firstElement;
+					*it = temp1;
 				}
+				counter++;
+				counter2++;
 			}
 		}
 		Base* at(int i)
 		{
 			list<Base*>::iterator it;
 			int counter = 0;
-			for(it = baseList.begin(); it != baseList.end(); ++it, ++counter)
+			for(it = baseList.begin(); it != baseList.end(); it++)
 			{
 				if(counter == i)
 				{
 					return *it;
 				}
+				counter++;
 			}
 			return *it;
 		}
@@ -157,58 +165,5 @@ class vectorcontainer : public Container
 		}
 };
 
-
-class BubbleSort : public Sort
-{
-	protected:
-		Container* child;
-		vector<Base*> baseVector;
-	public:
-		BubbleSort(): child(NULL) {}
-		BubbleSort(Container* temp): child(temp) {}
-		void sort(Container* temp)
-		{
-			child = temp;
-			for( int i = 0; i < temp->size(); ++i)
-			{
-				for(int j = 0; j < temp->size(); ++j)
-				{
-					if(j != temp->size() - 1)
-					{
-						if(temp->at(j)->evaluate() > temp->at(j + 1)->evaluate())
-						{
-							temp->swap(j, j+1);
-						}
-					}
-				}
-			}
-		}
-};
-
-class SelectionSort : public Sort
-{
-	protected:
-		Container* child;
-	public:
-		SelectionSort(): child(NULL) {}
-		SelectionSort(Container* temp): child(temp) {}
-		void sort(Container* temp)
-		{
-			child = temp;
-			int first, in, out;
-			for(out = 0; out < temp->size(); ++out)
-			{
-				first = 0;
-				for(in = 1; in <= out; ++in)
-				{
-					if(temp->at(in)->evaluate() > temp->at(first)->evaluate())
-					{
-						first = in;
-					}
-				}
-				temp->swap(first, out);
-			}
-		}
-};
 
 #endif // __CONTAINER_H__
